@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Playwright Docker Compose Tests
 
 on:
   push:
@@ -12,18 +12,19 @@ on:
       - master
 
 jobs:
-  playwright-test:
+  playwright-tests:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build Docker Image
-        run: docker build -t playwright-tests .
+      - name: Run Playwright Tests using Docker Compose
+        run: docker compose up --build --abort-on-container-exit
 
-      - name: Run Playwright Tests
-        run: docker run --rm playwright-tests
+      - name: Stop Containers
+        if: always()
+        run: docker compose down
 
       - name: Upload Playwright Report
         if: always()
@@ -31,10 +32,3 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-
-      - name: Upload Test Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: test-results/

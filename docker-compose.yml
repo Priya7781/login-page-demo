@@ -1,0 +1,9 @@
+services:
+  playwright:
+    build: .
+    container_name: playwright-tests
+    working_dir: /app
+    command: npx playwright test
+    volumes:
+      - .:/app
+      - /app/node_modules
