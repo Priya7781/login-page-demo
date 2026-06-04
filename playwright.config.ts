@@ -13,13 +13,13 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 
-const isCI = process.env.CI;
+const isCI = !!process.env.CI;
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: isCI? true : false,
+  forbidOnly: isCI,
   /* Retry on CI only */
   retries: isCI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
@@ -36,7 +36,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
-    video: 'on',
+    // video: 'on',
   },
 
   /* Configure projects for major browsers */
