@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker Image
-        run: docker build -t playwright-tests .
+        run: docker build --no-cache -t playwright-tests .
 
       - name: Run Playwright Tests
         run: docker run --rm playwright-tests
