@@ -7,4 +7,8 @@ test('Valid Login Test', async ({ page, loginPage }) => {
     await loginPage.login(loginData.username, loginData.password);
 
     await expect(page).toHaveURL(/inventory/);
+    await expect(page.locator('.title')).toHaveText('Products');
+
+    
+    
 });
